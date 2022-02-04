@@ -16,4 +16,4 @@
 5. JavaScript
 
 ## Ссылка на проект:  
-https://iuriimakarov.github.io/russian-travel/
+https://iuriimakarov.github.io/mesto/
