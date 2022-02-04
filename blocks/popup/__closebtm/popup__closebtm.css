@@ -1,0 +1,22 @@
+.popup__closebtm {
+    position: absolute;
+    background-image: url(../../../images/CloseIcon.svg);
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    top: -32px;
+    right: -32px;
+}
+
+.popup__closebtm:hover {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 650px) {
+    .popup__closebtm {
+        width: 20px;
+        height: 20px;
+        right: 0;
+        background-size: cover;
+    }
+}

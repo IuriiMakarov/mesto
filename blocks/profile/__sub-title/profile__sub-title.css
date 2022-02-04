@@ -1,0 +1,15 @@
+.profile__sub-title {
+    grid-area: subtext;
+    margin: 0;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+@media screen and (max-width: 650px) {
+    .profile__sub-title {
+        line-height: 16,94px;
+        font-size: 14px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

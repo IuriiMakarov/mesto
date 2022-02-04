@@ -1,0 +1,17 @@
+.profile__info {
+    min-width: 336px;
+    display: grid;
+    grid-template-columns: 0.928fr 0.072fr;
+    grid-template-rows: minmax(39px, auto);
+    grid-template-areas:
+       "text icon"
+       "subtext .";
+}
+
+@media screen and (max-width: 544px) {
+    .profile__info {
+        min-width: 282px;
+        grid-template-columns: 0.928fr 0.072fr;
+        grid-template-rows: 40px 14px;
+    }
+}
