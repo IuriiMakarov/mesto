@@ -1,7 +1,7 @@
 var buttonEdit = document.querySelector('.profile__editButton');
 var buttonClose = document.querySelector('.popup__closebtm');
-var overlay = document.querySelector('.overlay');
-var overlayActiveClass = 'overlay_active';
+var overlay = document.querySelector('.popup');
+var overlayActiveClass = 'popup_active';
 var buttonSave = document.querySelector('.popup__savebtm');
 
 buttonEdit.addEventListener('click', function(){
