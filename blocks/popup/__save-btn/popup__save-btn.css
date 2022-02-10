@@ -1,4 +1,4 @@
-.popup__savebtm {
+.popup__save-btn {
     background-color: black;
     color: white;
     font-size: 18px;
@@ -13,12 +13,12 @@
     cursor: pointer;
 }
 
-.popup__savebtm:hover {
+.popup__save-btn:hover {
     opacity: 0.8;
 }
 
 @media screen and (max-width: 650px) {
-    .popup__savebtm {
+    .popup__save-btn {
         font-size: 14px;
         line-height: 17px;
         height: 46px;
