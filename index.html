@@ -26,72 +26,6 @@
         <button class="profile__addButton"></button>
       </section>
       <section class="elements">
-        <article class="elements__element">
-          <img
-            class="elements__image"
-            src="./images/Karachaevs.jpg"
-            alt="Карачаевск"
-          />
-          <div class="elements__content">
-            <h2 class="elements__text">Карачаевск</h2>
-            <div class="elements__like"></div>
-          </div>
-        </article>
-        <article class="elements__element">
-          <img
-            class="elements__image"
-            src="./images/kirill-pershin-mouintain.png"
-            alt="Гора Эльбрус"
-          />
-          <div class="elements__content">
-            <h2 class="elements__text">Гора Эльбрус</h2>
-            <button class="elements__like"></button>
-          </div>
-        </article>
-        <article class="elements__element">
-          <img
-            class="elements__image"
-            src="./images/dombaya.png"
-            alt="Домбай"
-          />
-          <div class="elements__content">
-            <h2 class="elements__text">Домбай</h2>
-            <button class="elements__like"></button>
-          </div>
-        </article>
-        <article class="elements__element">
-          <img
-            class="elements__image"
-            src="./images/BigBan.jpg"
-            alt="Биг Бен"
-          />
-          <div class="elements__content">
-            <h2 class="elements__text">Биг Бен</h2>
-            <button class="elements__like"></button>
-          </div>
-        </article>
-        <article class="elements__element">
-          <img
-            class="elements__image"
-            src="./images/efl-tower.jpg"
-            alt="Эйфелева башня"
-          />
-          <div class="elements__content">
-            <h2 class="elements__text">Эйфелева башня</h2>
-            <button class="elements__like"></button>
-          </div>
-        </article>
-        <article class="elements__element">
-          <img
-            class="elements__image"
-            src="./images/Kremlin.jpg"
-            alt="Кремль"
-          />
-          <div class="elements__content">
-            <h2 class="elements__text">Кремль</h2>
-            <button class="elements__like"></button>
-          </div>
-        </article>
       </section>
       <footer class="footer">
         <p class="footer__text">© 2020 Mesto Russia</p>
@@ -115,7 +49,52 @@
           <button type="submit" class="popup__save-btn">Сохранить</button>
         </form>
       </section>
+      <section class="addImage">
+        <div class="addImage__container">
+          <button class="addImage__close-btn"></button>
+          <form class="addImage__form">
+            <h2 class="addImage__title">Новое место</h2>
+            <input
+              type="text"
+              placeholder="Название"
+              class="addImage__input addImage__input_type_name"
+              value=""
+            />
+            <input
+              type="text"
+              placeholder="Ссылка на картинку"
+              class="addImage__input addImage__input_type_link"
+              value=""
+            />
+           <button type="submit" class="addImage__save-btn">Сохранить</button>
+          </form>
+        </div>
+      </section>
+      <section class="showImage">
+        <div class="showImage__container">
+          <button class="showImage__close-btn"></button>
+          <img class="showImage__image" src="">
+          <h2 class="showImage__title">
+            
+          </h2>
+        </div>
+      </section>
     </div>
+    <template id="addImageTemplate">
+      <div class="elements__element">
+        <button class="elements__trash"></button>
+        <img
+          class="elements__image"
+          src="./images/Karachaevs.jpg"
+          alt="Карачаевск"
+          onclick="handleOpenImagePopup(event)"
+        />
+        <div class="elements__content">
+          <h2 class="elements__text"></h2>
+          <button class="elements__like"></button>
+        </div>
+      </div>
+    </template>
     <script src="./scripts/mesto.js"></script>
   </body>
 </html>

@@ -1,5 +1,5 @@
 .elements__image {
     border-radius: 10px 10px 0px 0px;
-    max-height: 282px;
+    height: 282px;
     object-fit: cover;
 }

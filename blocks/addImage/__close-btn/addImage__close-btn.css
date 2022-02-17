@@ -1,0 +1,25 @@
+.addImage__close-btn {
+    position: absolute;
+    background-image: url(../../../images/CloseIcon.svg);
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    top: -32px;
+    right: -32px;
+    background-color: transparent;
+    background-position: center;
+    border: none;
+}
+
+.addImage__close-btn:hover {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 650px) {
+    .addImage__close-btn {
+        width: 20px;
+        height: 20px;
+        right: 0;
+        background-size: cover;
+    }
+}

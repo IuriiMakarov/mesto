@@ -1,0 +1,15 @@
+.addImage__title {
+    color: black;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    margin-bottom: 54px;
+}
+
+
+@media screen and (max-width: 650px) {
+    .addImage__title {
+        font-size: 18px;
+        line-height: 22px;
+    }
+}
