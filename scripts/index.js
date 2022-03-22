@@ -40,84 +40,18 @@ const initialElements = [
 ]; 
 
 const imageElement = document.querySelector('.elements__image');
-const overlayImage = document.querySelector('.showImage');
+const overlayImage = document.querySelector('.popup__showImage');
 const imageOpenActive = 'showImage_active';
 const imageDeleteBtn = document.querySelector('.showImage__close-btn');
 const imageAddButton = document.querySelector('.profile__addButton');
 const imageAddForm = document.querySelector('.popup__addImageForm');
 const overlayAddImage = document.querySelector('.popup_addImage');
 const overlay = document.querySelector('.popup');
-const imageFull = document.querySelector('.showImage__image');
-const imageTitle = document.querySelector('.showImage__title');
+const imageFull = document.querySelector('.popup__image');
+const imageTitle = document.querySelector('.popup__imageTitle');
 const linkInput = document.querySelector('.popup__input_type_link');
 const descriptionInput = document.querySelector('.popup__input_type_description');
-
-/* Тут реализация добавления фотографий */
-
-imageAddButton.addEventListener('click', function(){
-
-  overlayAddImage.classList.add(overlayActiveClass);
-  descriptionInput.value = '';
-  linkInput.value = '';
-  
-});
-
-
-function handleAddImageSubmit (e) {
-  e.preventDefault();
-  const newImage = {
-    name: descriptionInput.value,
-    link: linkInput.value
-  }
-
-  placeImage(newImage);
-};
-
-imageAddForm.addEventListener('submit', handleAddImageSubmit);
-
-
-/* Тут реализация редактирования профиля */
-
-buttonEdit.addEventListener('click', function(){
-  overlayProfile.classList.add(overlayActiveClass);
-  nameInput.value = profileTitle.textContent;
-  jobInput.value = profileSubTitle.textContent;
-});
-
-function handleProfileFormSubmit (evt) {
-  evt.preventDefault();
-  profileTitle.textContent = nameInput.value;
-  profileSubTitle.textContent = jobInput.value;
-  
-};
-
-formEdit.addEventListener('submit', handleProfileFormSubmit);
-
-/* Тут реализация открытия картинки в полный размер */
-
-const handleOpenImagePopup = (event) => {
-  
-  overlayImage.classList.add(imageOpenActive);
-
-  const image = event.target.closest('.elements__element');
-  const imageUrl = image.querySelector('.elements__image').src;
-  imageFull.src = imageUrl;
- 
-  const imageNewTitle = image.querySelector('.elements__text').textContent;
-  imageTitle.textContent = imageNewTitle;
-};
-
-
-
-function closeFullImage() {
-  overlayImage.classList.remove(imageOpenActive)    
-};
-
-imageDeleteBtn.addEventListener('click', function(){
-
-  closeFullImage()
-
-});
+const buttonCloseImage = document.querySelector('.popup__close-btnShowImage')
 
 /* Тут реализация начальных карточек из массива */
 
@@ -126,6 +60,7 @@ const placeImage = (item => {
   
   const addImage = imageAddTemplate.cloneNode(true);
   addImage.querySelector('.elements__text').textContent = item.name;
+  addImage.querySelector('.elements__image').alt = item.name;
   addImage.querySelector('.elements__image').src = item.link;
   const imageLikeButton = addImage.querySelector('.elements__like');
   const imageDelete = addImage.querySelector('.elements__trash');
@@ -155,29 +90,84 @@ initialElements.forEach(item => {
   placeImage(item)
 });
 
-/* Тут реализация функций закрытия */
+/* Тут реализация функций закрытия и открытия */
 
-function closeProfilePopup() {
-  overlay.classList.remove(overlayActiveClass);
+function closePopup(window) {
+  window.classList.remove(overlayActiveClass);
 };
+
+function openPopup (window) {
+  window.classList.add(overlayActiveClass);
+}
+
+
+/* Тут реализация редактирования профиля */
+
+buttonEdit.addEventListener('click', function(){
+  openPopup(overlayProfile);
+
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileSubTitle.textContent;
+});
 
 buttonClose.addEventListener('click', function(){
-  closeProfilePopup()
-}); 
+  closePopup(overlayProfile);
+});
 
-buttonSave.addEventListener('click', function(){
-  closeProfilePopup()
-})   
 
-function closeAddImagePopup() {
-  overlayAddImage.classList.remove(overlayActiveClass);
+
+function handleProfileFormSubmit (evt) {
+  evt.preventDefault();
+  profileTitle.textContent = nameInput.value;
+  profileSubTitle.textContent = jobInput.value;
+  closePopup(overlayProfile)  
 };
 
+formEdit.addEventListener('submit', handleProfileFormSubmit);
+
+/* Тут реализация добавления фотографий */
+
+imageAddButton.addEventListener('click', function(){
+
+  openPopup(overlayAddImage);
+  descriptionInput.value = '';
+  linkInput.value = '';
+  
+});
+
 buttonCloseAdd.addEventListener('click', function(){
-  closeAddImagePopup()
-}); 
+  closePopup(overlayAddImage);
+})
 
-buttonSaveImage.addEventListener('click', function(){
-  closeAddImagePopup()
-})   
 
+function handleAddImageSubmit (e) {
+  e.preventDefault();
+  const newImage = {
+    name: descriptionInput.value,
+    link: linkInput.value
+  }
+
+   placeImage(newImage);
+  closePopup(overlayAddImage)
+};
+
+imageAddForm.addEventListener('submit', handleAddImageSubmit);
+
+
+/* Тут реализация открытия картинки в полный размер */
+
+const handleOpenImagePopup = (event) => {
+  
+  openPopup(overlayImage);
+  const image = event.target.closest('.elements__element');
+  const imageUrl = image.querySelector('.elements__image').src;
+  imageFull.src = imageUrl;
+ 
+  const imageNewTitle = image.querySelector('.elements__text').textContent;
+  imageTitle.textContent = imageNewTitle;
+  imageFull.alt = imageNewTitle;
+};
+
+buttonCloseImage.addEventListener('click', function(){
+  closePopup(overlayImage);
+})
