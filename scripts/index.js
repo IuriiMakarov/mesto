@@ -40,7 +40,7 @@ const initialElements = [
 ]; 
 
 const imageElement = document.querySelector('.elements__image');
-const overlayImage = document.querySelector('.popup__showImage');
+const overlayImage = document.querySelector('.popup_showImage');
 const imageOpenActive = 'showImage_active';
 const imageDeleteBtn = document.querySelector('.showImage__close-btn');
 const imageAddButton = document.querySelector('.profile__addButton');
