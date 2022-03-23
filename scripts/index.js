@@ -53,24 +53,44 @@ const linkInput = document.querySelector('.popup__input_type_link');
 const descriptionInput = document.querySelector('.popup__input_type_description');
 const buttonCloseImage = document.querySelector('.popup__close-btnShowImage')
 
+
 /* Тут реализация начальных карточек из массива */
 
+
+// Place это глагол. 
 
 const placeImage = (item => {
   
   const addImage = imageAddTemplate.cloneNode(true);
+  let elementImage = addImage.querySelector('.elements__image');
   addImage.querySelector('.elements__text').textContent = item.name;
-  addImage.querySelector('.elements__image').alt = item.name;
-  addImage.querySelector('.elements__image').src = item.link;
+  elementImage.alt = item.name;
+  elementImage.src = item.link;
+
+  /* Тут реализация открытия картинки в полный размер */
+
+  elementImage.onclick = handleOpenImagePopup = (event) => {
+  
+    const image = event.target.closest('.elements__element');
+    const imageUrl = image.querySelector('.elements__image').src;
+    imageFull.src = imageUrl;
+   
+    const imageNewTitle = image.querySelector('.elements__text').textContent;
+    imageTitle.textContent = imageNewTitle;
+    imageFull.alt = imageNewTitle;
+  
+    openPopup(overlayImage);
+  };
+
   const imageLikeButton = addImage.querySelector('.elements__like');
   const imageDelete = addImage.querySelector('.elements__trash');
 
 
-  imageLikeButton.addEventListener('click', handleLikeButton)
+  imageLikeButton.addEventListener('click', handleLikeButton);
 
-  imageDelete.addEventListener('click', handleDeleteButton)
-  
-  imageAddWrape.prepend(addImage)
+  imageDelete.addEventListener('click', handleDeleteButton);
+
+  return addImage;
 
 });
 
@@ -87,7 +107,8 @@ const handleDeleteButton = (e) => {
 };
 
 initialElements.forEach(item => {
-  placeImage(item)
+  const newElement = placeImage(item);
+  imageAddWrape.prepend(newElement);
 });
 
 /* Тут реализация функций закрытия и открытия */
@@ -100,14 +121,20 @@ function openPopup (window) {
   window.classList.add(overlayActiveClass);
 }
 
+buttonCloseImage.addEventListener('click', function(){
+  closePopup(overlayImage);
+})
+
 
 /* Тут реализация редактирования профиля */
 
 buttonEdit.addEventListener('click', function(){
-  openPopup(overlayProfile);
 
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubTitle.textContent;
+
+  openPopup(overlayProfile);
+
 });
 
 buttonClose.addEventListener('click', function(){
@@ -129,9 +156,10 @@ formEdit.addEventListener('submit', handleProfileFormSubmit);
 
 imageAddButton.addEventListener('click', function(){
 
-  openPopup(overlayAddImage);
   descriptionInput.value = '';
   linkInput.value = '';
+
+  openPopup(overlayAddImage);
   
 });
 
@@ -147,27 +175,9 @@ function handleAddImageSubmit (e) {
     link: linkInput.value
   }
 
-   placeImage(newImage);
+  const newElement = placeImage(newImage);
+  imageAddWrape.prepend(newElement);
   closePopup(overlayAddImage)
 };
 
 imageAddForm.addEventListener('submit', handleAddImageSubmit);
-
-
-/* Тут реализация открытия картинки в полный размер */
-
-const handleOpenImagePopup = (event) => {
-  
-  openPopup(overlayImage);
-  const image = event.target.closest('.elements__element');
-  const imageUrl = image.querySelector('.elements__image').src;
-  imageFull.src = imageUrl;
- 
-  const imageNewTitle = image.querySelector('.elements__text').textContent;
-  imageTitle.textContent = imageNewTitle;
-  imageFull.alt = imageNewTitle;
-};
-
-buttonCloseImage.addEventListener('click', function(){
-  closePopup(overlayImage);
-})
