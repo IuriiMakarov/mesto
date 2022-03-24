@@ -12,6 +12,6 @@
     .profile__info {
         min-width: 282px;
         grid-template-columns: 0.928fr 0.072fr;
-        grid-template-rows: 40px 14px;
+        grid-template-rows: 40px 20px;
     }
 }

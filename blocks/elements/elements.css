@@ -3,9 +3,6 @@
     display: flex;
     margin: auto;
     flex-wrap: wrap;
-    justify-content: space-between;
-    padding-left: 15px;
-    padding-right: 15px;
 }
 
 @media screen and (max-width: 650px) {

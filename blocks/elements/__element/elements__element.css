@@ -3,4 +3,11 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    margin-right: 10px;
+}
+
+@media screen and (max-width: 650px) {
+    .elements__element {
+        margin-right: 0px;
+    }
 }
