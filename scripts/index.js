@@ -11,7 +11,6 @@ const imageAddWrape = document.querySelector('.elements');
 const imageAddTemplate = document.querySelector('#addImageTemplate').content;
 const buttonClose = document.querySelector('.popup__close-btn');
 const buttonCloseAdd = document.querySelector('.popup__addClose-btn');
-const buttonSaveImage = document.querySelector('.popup__imageSave-btn');
 const initialElements = [
   {
     name: 'Архыз',
@@ -51,7 +50,8 @@ const imageFull = document.querySelector('.popup__image');
 const imageTitle = document.querySelector('.popup__imageTitle');
 const linkInput = document.querySelector('.popup__input_type_link');
 const descriptionInput = document.querySelector('.popup__input_type_description');
-const buttonCloseImage = document.querySelector('.popup__close-btnShowImage')
+const buttonCloseImage = document.querySelector('.popup__close-btnShowImage');
+const allPopup =  document.querySelectorAll('popup');
 
 
 /* Тут реализация начальных карточек из массива */
@@ -115,15 +115,38 @@ initialElements.forEach(item => {
 
 function closePopup(window) {
   window.classList.remove(overlayActiveClass);
+  document.removeEventListener('keydown', closePopupEsc);
+
+    
 };
 
 function openPopup (window) {
   window.classList.add(overlayActiveClass);
-}
+  document.addEventListener('keydown', handleEscUp);
+
+  window.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
+      closePopup(window);
+    }
+  })
+};
 
 buttonCloseImage.addEventListener('click', function(){
   closePopup(overlayImage);
 })
+
+
+const closePopupEsc = (window) =>{
+  window.classList.remove('popup_active');
+}
+
+const handleEscUp = (evt) =>  {
+  const activePopup = document.querySelector('.popup_active');
+  if (evt.key === 'Escape') {
+    closePopupEsc(activePopup);
+  }
+};
+
 
 
 /* Тут реализация редактирования профиля */
@@ -134,7 +157,6 @@ buttonEdit.addEventListener('click', function(){
   jobInput.value = profileSubTitle.textContent;
 
   openPopup(overlayProfile);
-
 });
 
 buttonClose.addEventListener('click', function(){

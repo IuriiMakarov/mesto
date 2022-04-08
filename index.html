@@ -33,42 +33,80 @@
       <section class="popup popup_profileEdit">
         <div class="popup__container">
           <button class="popup__close-btn"></button>
-          <form class="popup__editForm">
+          <!--Форма редактирования-->
+          <form class="popup__editForm popup__form" name='edit' novalidate>
             <h2 class="popup__title">Редактировать профиль</h2>
             <input
               type="text"
               placeholder="Введите имя"
               class="popup__input popup__input_type_name"
               value=""
+              required
+              minlength="2"
+              maxlength="40"
+              id="name"
             />
+            <span
+            class="popup__error_visible"
+            id="name-error"
+            >      
+            </span>
             <input
               type="text"
               placeholder="Введите профессию"
               class="popup__input popup__input_type_job"
               value=""
+              required
+              minlength="2"
+              maxlength="200"
+              id="description"
             />
-            <button type="submit" class="popup__save-btn">Сохранить</button>
+            <span
+            class="popup__error_visible"
+            id="description-error"
+            >      
+            </span>
+            <button type="submit" class="popup__save-btn popup__save-btn_valid">Сохранить</button>
           </form>
         </div>
       </section>
       <section class="popup popup_addImage">
         <div class="popup__container">
           <button class="popup__close-btn popup__addClose-btn"></button>
-          <form class="popup__addImageForm">
+          <!--Форма добавление фото-->
+          <form class="popup__addImageForm popup__form" name='addPhoto' novalidate>
             <h2 class="popup__title">Новое место</h2>
             <input
               type="text"
               placeholder="Название"
               class="popup__input popup__input_type_description"
               value=""
+              required
+              minlength="2"
+              maxlength="30" 
+              id="card-name"
+              name="card-name"            
             />
+            <span
+            class="popup__error_visible"
+            id="card-name-error"
+            >      
+            </span>
             <input
-              type="text"
+              type="url"
               placeholder="Ссылка на картинку"
               class="popup__input popup__input_type_link"
               value=""
+              required
+              id="link" 
+              name="link"
             />
-           <button type="submit" class="popup__save-btn popup__imageSave-btn">Сохранить</button>
+            <span
+            class="popup__error_visible"
+            id="link-error"
+            >      
+            </span>
+           <button type="submit" class="popup__save-btn popup__save-btn_valid" disabled>Сохранить</button>
           </form>
         </div>
       </section>
@@ -98,5 +136,6 @@
       </div>
     </template>
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>
