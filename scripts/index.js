@@ -1,7 +1,6 @@
 const buttonEdit = document.querySelector('.profile__editButton');
 const overlayProfile = document.querySelector('.popup_profileEdit');
 const overlayActiveClass = 'popup_active';
-const buttonSave = document.querySelector('.popup__save-btn');
 const profileTitle = document.querySelector('.profile__title');
 const profileSubTitle = document.querySelector('.profile__sub-title');
 const formEdit = document.querySelector('.popup__editForm');
@@ -44,6 +43,8 @@ const createCard = (item => {
     imageFull.src = item.link;
    
     imageFull.alt = item.name;
+
+    imageTitle.textContent = item.name;
   
     openPopup(overlayImage);
   };
@@ -104,17 +105,10 @@ function closePopupClickOverlay (evt) {
   }
 }
 
-const closePopupEsc = (popup) =>{
-  popup.classList.remove('popup_active');
-}
 
-// Извиняюсь, я возможно ошибаюсь, но я до этого устанавливал селектор overlayActiveClass не для поиска
-// активного попапа, а присваивал ему нужный класс для добавления. Может быть просто в начале вынести
-// ещё раз  '.popup_active' уже как элемент html, или можно прросто вот так внутри фунции её находить?
-// Комментарий конечно удалю сразу после интерации
 const handleEscUp = (evt) =>  {
-  const activePopup = document.querySelector('.popup_active');
   if (evt.key === 'Escape') {
+    const activePopup = document.querySelector(`.${overlayActiveClass}`);
     closePopup(activePopup);
   }
 };
@@ -153,6 +147,7 @@ imageAddButton.addEventListener('click', function(){
   descriptionInput.value = '';
   linkInput.value = '';
   buttonAddImage.setAttribute('disabled', 'disabled');
+  buttonAddImage.classList.add('popup__save-btn_invalid');
 
   openPopup(overlayAddImage);
   
@@ -176,11 +171,3 @@ function handleAddImageSubmit (e) {
 };
 
 imageAddForm.addEventListener('submit', handleAddImageSubmit);
-
-
-  /*popup.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
-      closePopup(popup);
-    }
-  })
-  */
