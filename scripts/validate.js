@@ -1,80 +1,77 @@
-function enableValidation (config) {
-    const form =  document.querySelector(config.formSelector);
+export class FormValidator {
+      constructor(config, selector){
 
-    form.addEventListener('input', (evt) => handleFormimput(evt, config));
-};
+          this._form = config.formSelector;
+          this._submitButtonSelector = config.submitButtonSelector;
+          this._inactiveButtonClass = config.inactiveButtonClass;
+          this._inputErrorClass = config.inputErrorClass;
+          this._errorClass = config.errorClass;
+          this._inputSelector = config.inputSelector;
 
-function handleFormimput (evt, config) {
-    const form = evt.currentTarget;
-    const input = evt.target;
+          this._selector = selector;
+      }
 
-    setCustomError(input, config);
+      _enableInputError(inputElement, message) {
+          const errorMessage = this._selector.querySelector(`.${inputElement.id}-error`);
+          inputElement.classList.add(this._inputErrorClass);
+          errorMessage.textContent = message;
+          errorMessage.classList.add(this._errorClass)
+      }
 
-    setFieldError(input);
+      _disableInputError(inputElement) {
+        const errorMessage = this._selector.querySelector(`.${inputElement.id}-error`);
+        inputElement.classList.remove(this._inputErrorClass);
+        errorMessage.textContent = '';
+        errorMessage.classList.remove(this._errorClass)
+      }
 
-    setSubmitButtonState(form, config);
-}
+      _checkInputValidity(inputElement) {
+        if (!inputElement.validity.valid) {
+          this._enableInputError(inputElement, inputElement.validationMessage);
+        } else {
+          this._disableInputError(inputElement);
+        }
+      };
 
-function setCustomError(input, config) {
-    const validity = input.validity;
+      _setEventListener() {
+        this._inputArray = Array.from(this._selector.querySelectorAll(this._inputSelector));
+        this._buttonElement = this._selector.querySelector(this._submitButtonSelector);
+        this._changeButtonState(this._inputArray, this._buttonElement);
+        this._inputArray.forEach((inputElement) => {
+          inputElement.addEventListener('input', () => {
+            this._checkInputValidity(inputElement);
+            this._changeButtonState(this._inputArray, this._buttonElement);
+          });
+        });
+      }
 
-    input.setCustomValidity('');
+      _changeButtonState() {
+        if (this._isInvalidInput(this._inputArray)) {
+          this._buttonElement.classList.add(this._inactiveButtonClass);
+          this._buttonElement.disabled = true;
+        } else {
+          this._buttonElement.classList.remove(this._inactiveButtonClass);
+          this._buttonElement.disabled = false;
+        }
+      }
 
+      _isInvalidInput() {
+        return this._inputArray.some((inputElement) => {
+          return !inputElement.validity.valid;
+          });
+      }
 
-
-    if (validity.tooShort ||  validity.tooLong) {
-        const currentLength = input.value.length;
-        const min = input.getAttribute('minlength');
-        const max = input.getAttribute('maxlength');
-        input.classList.add(config.inputErrorClass);
-        input.setCustomValidity(`Строка имеет неверную длину. Введено ${currentLength} символов, а должно быть от ${min} до ${max}`);
-    } else if (validity.valueMissing) {
-        input.setCustomValidity('Вы пропустили это поле.');
-        
-    }else {
-        input.classList.remove(config.inputErrorClass);
-    }
-
-    if (validity.typeMismatch) {
-        input.setCustomValidity(`Введите ссылку`);
-        input.classList.add(config.inputErrorClass);
-    } 
-}
-
-
-function setFieldError(input) {
-    const span = document.querySelector(`#${input.id}-error`);
-    span.textContent = input.validationMessage;
-}
-
-function setSubmitButtonState(form, config) {
-    const button = form.querySelector(config.submitButtonSelector);
-    const isValid = form.checkValidity();
-
-
-    if(isValid) {
-        button.classList.add(config.errorClass);
-        button.classList.remove(config.inactiveButtonClass);
-        button.removeAttribute('disabled')
-    }else {
-        button.classList.add(config.inactiveButtonClass);
-        button.classList.remove(config.errorClass);
-        button.setAttribute('disabled', 'disabled')
-    }
-}
-
-enableValidation({
-    formSelector: '.popup__form[name="edit"]',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__save-btn_valid',
-    inactiveButtonClass: 'popup__save-btn_invalid',
-    submitButtonSelector: '.popup__save-btn',
-  });
-
-enableValidation({
-    formSelector: '.popup__form[name="addPhoto"]',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__save-btn_valid',
-    inactiveButtonClass: 'popup__save-btn_invalid',
-    submitButtonSelector: '.popup__save-btn'
-  });
+      enableValidation() {
+        this._selector.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+        });
+        this._setEventListener();
+        };
+      
+      resetValidation() {
+          this._changeButtonState();
+          this._inputArray.forEach((inputElement) => {
+            this._disableInputError(inputElement);
+          });
+        }
+}; 

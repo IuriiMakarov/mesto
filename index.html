@@ -34,7 +34,7 @@
         <div class="popup__container">
           <button class="popup__close-btn"></button>
           <!--Форма редактирования-->
-          <form class="popup__editForm popup__form" name='edit' novalidate>
+          <form class="popup__editForm popup__form" name ='edit' id="editForm" novalidate>
             <h2 class="popup__title">Редактировать профиль</h2>
             <input
               type="text"
@@ -47,7 +47,7 @@
               id="name"
             />
             <span
-            class="popup__error popup__error_visible"
+            class="popup__error name-error"
             id="name-error"
             >      
             </span>
@@ -62,7 +62,7 @@
               id="description"
             />
             <span
-            class="popup__error popup__error_visible"
+            class="popup__error description-error"
             id="description-error"
             >      
             </span>
@@ -74,7 +74,7 @@
         <div class="popup__container">
           <button class="popup__close-btn popup__addClose-btn"></button>
           <!--Форма добавление фото-->
-          <form class="popup__addImageForm popup__form" name='addPhoto' novalidate>
+          <form class="popup__addImageForm popup__form" name='addPhoto' id="addPhotoForm" novalidate>
             <h2 class="popup__title">Новое место</h2>
             <input
               type="text"
@@ -88,7 +88,7 @@
               name="card-name"            
             />
             <span
-            class="popup__error popup__error_visible"
+            class="popup__error card-name-error"
             id="card-name-error"
             >      
             </span>
@@ -102,7 +102,7 @@
               name="link"
             />
             <span
-            class="popup__error popup__error_visible"
+            class="popup__error link-error"
             id="link-error"
             >      
             </span>
@@ -136,7 +136,6 @@
       </div>
     </template>
     <script src="./scripts/initialElements.js"></script>
-    <script src="./scripts/index.js"></script>
-    <script src="./scripts/validate.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>

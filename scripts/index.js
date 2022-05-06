@@ -1,3 +1,5 @@
+import {FormValidator} from './validate.js';
+
 const buttonEdit = document.querySelector('.profile__editButton');
 const overlayProfile = document.querySelector('.popup_profileEdit');
 const overlayActiveClass = 'popup_active';
@@ -7,7 +9,6 @@ const formEdit = document.querySelector('.popup__editForm');
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_job');
 const imageAddWrape = document.querySelector('.elements');
-const imageAddTemplate = document.querySelector('#addImageTemplate').content;
 const buttonClose = document.querySelector('.popup__close-btn');
 const buttonCloseAdd = document.querySelector('.popup__addClose-btn');
 const imageElement = document.querySelector('.elements__image');
@@ -22,44 +23,28 @@ const imageTitle = document.querySelector('.popup__imageTitle');
 const linkInput = document.querySelector('.popup__input_type_link');
 const descriptionInput = document.querySelector('.popup__input_type_description');
 const buttonCloseImage = document.querySelector('.popup__close-btnShowImage');
-const buttonAddImage = document.querySelector('.popup__save-btn_addImage')
+const buttonAddImage = document.querySelector('.popup__save-btn_addImage');
+const addPhotoForm = document.getElementById('addPhotoForm');
+const editForm = document.getElementById('editForm');
+
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible',
+  inactiveButtonClass: 'popup__save-btn_invalid',
+  submitButtonSelector: '.popup__save-btn'
+};
 
 
-/* Тут реализация начальных карточек из массива */
+const editFormValidation = new FormValidator(config, editForm);
+editFormValidation.enableValidation();
+
+const addImageFormValidation = new FormValidator(config, addPhotoForm);
+addImageFormValidation.enableValidation();
 
 
-const createCard = (item => {
-  
-  const card = imageAddTemplate.cloneNode(true);
-  const elementImage = card.querySelector('.elements__image');
-  card.querySelector('.elements__text').textContent = item.name;
-  elementImage.alt = item.name;
-  elementImage.src = item.link;
-
-  /* Тут реализация открытия картинки в полный размер */
-
-  elementImage.onclick = (event) => {
-  
-    imageFull.src = item.link;
-   
-    imageFull.alt = item.name;
-
-    imageTitle.textContent = item.name;
-  
-    openPopup(overlayImage);
-  };
-
-  const imageLikeButton = card.querySelector('.elements__like');
-  const imageDelete = card.querySelector('.elements__trash');
-
-
-  imageLikeButton.addEventListener('click', handleLikeButton);
-
-  imageDelete.addEventListener('click', handleDeleteButton);
-
-  return card;
-
-});
+// реализация лайков и удаления
 
 const handleLikeButton = (e) => {
 
@@ -72,11 +57,6 @@ const handleDeleteButton = (e) => {
   e.target.closest('.elements__element').remove();
 
 };
-
-initialElements.forEach(item => {
-  const newElement = createCard(item);
-  imageAddWrape.prepend(newElement);
-});
 
 /* Тут реализация функций закрытия и открытия */
 
@@ -157,6 +137,8 @@ buttonCloseAdd.addEventListener('click', function(){
   closePopup(overlayAddImage);
 })
 
+// Создание новой карточки
+
 
 function handleAddImageSubmit (e) {
   e.preventDefault();
@@ -165,9 +147,71 @@ function handleAddImageSubmit (e) {
     link: linkInput.value
   }
 
-  const newElement = createCard(newImage);
-  imageAddWrape.prepend(newElement);
+  const newElement = new Card(newImage.name, newImage.link);
+  newElement.createCard();
   closePopup(overlayAddImage)
 };
 
 imageAddForm.addEventListener('submit', handleAddImageSubmit);
+
+
+// Класс карточки
+
+class Card {
+  constructor (name, link) {
+    this._name = name;
+    this._link = link;
+  }
+
+  _getTemplate() {
+    const cardElement = document.querySelector('#addImageTemplate').content.cloneNode(true);
+
+    return cardElement;
+  }
+
+  createCard() {
+    this._element = this._getTemplate();
+
+    this._element.querySelector(".elements__image").src = this._link;
+    this._element.querySelector(".elements__text").textContent = this._name;
+    this._element.querySelector(".elements__image").alt = this._name;
+
+    // Листенер на лайк
+    this._likeButton = this._element.querySelector('.elements__like'); 
+    this._likeButton.addEventListener('click', handleLikeButton);
+
+    // Листенер на удаление
+
+    this._deleteButton = this._element.querySelector('.elements__trash');
+    this._deleteButton.addEventListener('click', handleDeleteButton)
+
+    // реализация открытие открытия карточки
+
+    this._image = this._element.querySelector('.elements__image');
+    this._image.addEventListener('click', function (event) {
+
+      const imageLink = event.target.src;
+      const imageName = event.target.alt;
+
+      overlayImage.classList.add(overlayActiveClass);
+      imageFull.src = imageLink;
+      imageFull.alt = imageName;
+      imageTitle.textContent = imageName;
+
+    })
+
+    //вставляем новую карточку
+
+    imageAddWrape.prepend(this._element);
+
+    return this._element;
+  }
+
+}
+
+// Добавляем картинки из начального массива 
+
+initialElements.forEach(item => {
+  let card = new Card(item.name, item.link)
+  card.createCard(item);
+}) 
