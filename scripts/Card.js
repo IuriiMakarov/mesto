@@ -1,4 +1,5 @@
-import { openPopup } from "./index.js";
+import { openPopup, closePopup, overlayImage, overlayActiveClass, imageFull, imageTitle } from "./utils.js";
+
 // Класс карточки
 
 export class Card {
@@ -10,7 +11,7 @@ export class Card {
   }
 
   _getTemplate() {
-    const cardElement = this._selector.content.cloneNode(true);
+    const cardElement = this._selector.content.querySelector('.elements__element').cloneNode(true);
 
     return cardElement;
   }
@@ -39,10 +40,6 @@ export class Card {
 
       const imageLink = event.target.src;
       const imageName = event.target.alt;
-      const overlayImage = document.querySelector('.popup_showImage');
-      const overlayActiveClass = 'popup_active';
-      const imageFull = document.querySelector('.popup__image');
-      const imageTitle = document.querySelector('.popup__imageTitle');
 
       openPopup(overlayImage);
       imageFull.src = imageLink;
@@ -50,13 +47,10 @@ export class Card {
       imageTitle.textContent = imageName;
 
     })
-
-    return this._element;
   }
 
   //вставляем новую карточку
-  renderCard(){
-    const imageAddWrape = document.querySelector('.elements');
+  renderCard(imageAddWrape){
     imageAddWrape.prepend(this._element);
   }
 
@@ -70,7 +64,7 @@ export class Card {
 
   _handleDeleteButton = (e) => {
 
-    this._deleteButton.closest('.elements__element').remove();
+    this._element.remove();
   
   };
 

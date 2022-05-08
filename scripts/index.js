@@ -1,5 +1,6 @@
 import {FormValidator} from './FormValidator.js';
 import {Card} from './Card.js';
+import {openPopup, closePopup} from './utils.js';
 
 const buttonEdit = document.querySelector('.profile__editButton');
 const overlayProfile = document.querySelector('.popup_profileEdit');
@@ -48,41 +49,9 @@ addImageFormValidation.enableValidation();
 
 
 /* Тут реализация функций закрытия и открытия */
-
-function closePopup(popup) {
-  popup.classList.remove(overlayActiveClass);
-  document.removeEventListener('keydown', handleEscUp);
-  popup.removeEventListener('mousedown', closePopupClickOverlay);
-};
-
-export function openPopup (popup) {
-  popup.classList.add(overlayActiveClass);
-  document.addEventListener('keydown', handleEscUp);
-  popup.addEventListener('mousedown', closePopupClickOverlay);
-};
-
-
 buttonCloseImage.addEventListener('mousedown', function(){
   closePopup(overlayImage);
 })
-
-
-function closePopupClickOverlay (evt) {
-  if (evt.target.classList.contains('popup')) {
-      const popup = evt.target;
-      closePopup(popup);
-  }
-}
-
-
-const handleEscUp = (evt) =>  {
-  if (evt.key === 'Escape') {
-    const activePopup = document.querySelector(`.${overlayActiveClass}`);
-    closePopup(activePopup);
-  }
-};
-
-
 
 /* Тут реализация редактирования профиля */
 
@@ -153,6 +122,6 @@ initialElements.forEach(item => {
 
 function handleCreateCard (item) {
   const card = new Card(item.name, item.link, cardTemplate)
-  card.createCard(item);
-  card.renderCard();
+  card.createCard();
+  card.renderCard(imageAddWrape);
 }
