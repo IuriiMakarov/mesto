@@ -9,12 +9,12 @@
   <body class="body">
     <div class="page">
       <header class="header">
-        <img class="header__logo" src="<%=require(./images/logo.svg)%>" alt="Логотип Место" />
+        <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип Место" />
       </header>
       <section class="profile">
         <img
           class="profile__avatar"
-          src="<%=require(./images/avatar.jpg)%>"
+          src="<%=require('./images/avatar.jpg')%>"
           alt="Жак-Ив Кусто"
         />
         <div class="profile__info">
@@ -126,7 +126,7 @@
         <button class="elements__trash"></button>
         <img
           class="elements__image"
-          src="./images/Karachaevs.jpg"
+          src="<%=require('./images/Karachaevs.jpg')%>"
           alt=""
           onclick=""
         />
@@ -136,6 +136,5 @@
         </div>
       </div>
     </template>
-    <script type="module" src="./pages/index.js"></script>
   </body>
 </html>
