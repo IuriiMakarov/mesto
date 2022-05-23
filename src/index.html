@@ -4,18 +4,17 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <title>Document</title>
   </head>
   <body class="body">
     <div class="page">
       <header class="header">
-        <img class="header__logo" src="./images/logo.svg" alt="Логотип Место" />
+        <img class="header__logo" src="<%=require(./images/logo.svg)%>" alt="Логотип Место" />
       </header>
       <section class="profile">
         <img
           class="profile__avatar"
-          src="./images/avatar.jpg"
+          src="<%=require(./images/avatar.jpg)%>"
           alt="Жак-Ив Кусто"
         />
         <div class="profile__info">
@@ -30,7 +29,7 @@
       <footer class="footer">
         <p class="footer__text">© 2020 Mesto Russia</p>
       </footer>
-      <section class="popup popup_profileEdit">
+      <section class="popup popup_profileEdit" id="popup_profileEdit">
         <div class="popup__container">
           <button class="popup__close-btn"></button>
           <!--Форма редактирования-->
@@ -45,6 +44,7 @@
               minlength="2"
               maxlength="40"
               id="name"
+              name="name"
             />
             <span
             class="popup__error name-error"
@@ -60,6 +60,7 @@
               minlength="2"
               maxlength="200"
               id="description"
+              name="info"
             />
             <span
             class="popup__error description-error"
@@ -70,7 +71,7 @@
           </form>
         </div>
       </section>
-      <section class="popup popup_addImage">
+      <section class="popup popup_addImage" id="popup_addImage">
         <div class="popup__container">
           <button class="popup__close-btn popup__addClose-btn"></button>
           <!--Форма добавление фото-->
@@ -85,7 +86,7 @@
               minlength="2"
               maxlength="30" 
               id="card-name"
-              name="card-name"            
+              name="name"            
             />
             <span
             class="popup__error card-name-error"
@@ -125,7 +126,7 @@
         <button class="elements__trash"></button>
         <img
           class="elements__image"
-          src="./images/Karachaevs.jpg"
+          src=""
           alt=""
           onclick=""
         />
@@ -135,7 +136,6 @@
         </div>
       </div>
     </template>
-    <script src="./scripts/initialElements.js"></script>
-    <script type="module" src="./scripts/index.js"></script>
+    <script type="module" src="./pages/index.js"></script>
   </body>
 </html>
