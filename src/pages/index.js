@@ -2,9 +2,9 @@ import './index.css';
 
 import {FormValidator} from '../components/FormValidator.js';
 import {Card} from '../components/Card.js';
-import {nameInput, jobInput, buttonEdit, imageAddButton, cardTemplate, config} from '../components/utils.js';
+import {nameInput, jobInput, buttonEdit, imageAddButton, cardTemplate, config} from '../utils/utils.js';
 import {Section} from '../components/Section.js';
-import {initialElements} from '../components/initialElements.js';
+import {initialElements} from '../utils/initialElements.js';
 import {PopupWithForm} from '../components/PopupWithForm.js';
 import {UserInfo} from '../components/UserInfo.js'
 import {PopupWithImage} from '../components/PopupWithImage.js';
